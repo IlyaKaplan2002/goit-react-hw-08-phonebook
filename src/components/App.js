@@ -1,6 +1,6 @@
 import mainRoutes from 'constants/routes/mainRoutes';
 import React, { Suspense, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
 import Navigation from './Navigation';
 import { useDispatch } from 'react-redux';
@@ -29,6 +29,10 @@ const App = () => {
                     <Route key={path} path={path} element={<Component />} />
                   )
                 )}
+                <Route
+                  path="*"
+                  element={<Navigate to={mainRoutes.contacts.path} />}
+                />
               </Routes>
             </Suspense>
           </Container>

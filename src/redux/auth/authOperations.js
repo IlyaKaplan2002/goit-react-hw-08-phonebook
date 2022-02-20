@@ -14,35 +14,35 @@ const token = {
   },
 };
 
-const signUp = createAsyncThunk('auth/signUp', async user => {
+const signUp = createAsyncThunk('auth/signUp', async (user, thunkAPI) => {
   try {
     const res = await authApi.signUp(user);
     token.set(res.token);
     return res;
   } catch (error) {
     Notify.failure('Email exists!');
-    throw new Error(error);
+    return thunkAPI.rejectWithValue();
   }
 });
 
-const logIn = createAsyncThunk('auth/logIn', async user => {
+const logIn = createAsyncThunk('auth/logIn', async (user, thunkAPI) => {
   try {
     const res = await authApi.logIn(user);
     token.set(res.token);
     return res;
   } catch (error) {
     Notify.failure('Wrong email or password!');
-    throw new Error(error);
+    return thunkAPI.rejectWithValue();
   }
 });
 
-const logOut = createAsyncThunk('auth/logOut', async user => {
+const logOut = createAsyncThunk('auth/logOut', async (user, thunkAPI) => {
   try {
     await authApi.logOut(user);
     token.unset();
   } catch (error) {
     Notify.failure('Your token is bad!');
-    throw new Error(error);
+    return thunkAPI.rejectWithValue();
   }
 });
 
@@ -50,16 +50,17 @@ const getCurrentUser = createAsyncThunk(
   'auth/getCurrentUser',
   async (_, thunkAPI) => {
     const persistedToken = authSelectors.getToken(thunkAPI.getState());
-    if (token) {
+    console.log(persistedToken);
+    if (persistedToken) {
       token.set(persistedToken);
       try {
         const res = await authApi.getCurrentUser();
         return res;
       } catch (error) {
         Notify.failure('Your token is bad!');
-        throw new Error(error);
       }
     }
+    return thunkAPI.rejectWithValue();
   }
 );
 

@@ -21,7 +21,7 @@ const authReducer = createReducer(initialState, {
   },
   [authOperations.logOut.fulfilled]: state => {
     state.user = { name: null, email: null };
-    state.token = null;
+    state.token = '';
     state.isLoggedIn = false;
   },
   [authOperations.getCurrentUser.fulfilled]: (state, { payload }) => {
@@ -33,6 +33,7 @@ const authReducer = createReducer(initialState, {
     state.isRefreshing = true;
   },
   [authOperations.getCurrentUser.rejected]: state => {
+    state.user = { name: null, email: null };
     state.isRefreshing = false;
   },
 });

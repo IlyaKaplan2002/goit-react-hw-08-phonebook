@@ -2,7 +2,7 @@
   "name": "goit-react-hw-08-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ilyakaplan2002.github.io/goit-react-hw-08-phonebook/",
+  "homepage": "https://goit-react-hw-08-phonebook-kaplan.netlify.app",
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.1",
