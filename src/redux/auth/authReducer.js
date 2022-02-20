@@ -4,7 +4,7 @@ import { createReducer } from '@reduxjs/toolkit';
 const initialState = {
   user: { name: null, email: null },
   isLoggedIn: false,
-  token: null,
+  token: '',
   isRefreshing: false,
 };
 
